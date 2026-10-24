@@ -1,5 +1,5 @@
 # Ảnh kết quả
 
-Tuần 1 chưa có ảnh chụp cá nhân A01–A11. Sẽ thêm ảnh của lần chạy thật vào
-thư mục này khi thực hiện các ca tương ứng; không dùng ảnh từ mẫu BFS làm
-minh chứng cho đề Sudoku.
+Tuần 2 đã có A01 và A02 do sinh viên chạy hai ví dụ DT041 từ ZIP trên máy cá
+nhân. Còn thiếu chín ảnh A03–A11; chỉ thêm ảnh của lần chạy thật vào thư mục
+này, không dùng ảnh mẫu BFS làm minh chứng cho đề Sudoku.
