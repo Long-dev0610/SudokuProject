@@ -46,14 +46,6 @@ Terminal in bảng nhập, thống kê số ứng viên đã thử, số lần �
 - `docs/logs/`: stdout của các lệnh đã chạy trên commit C.
 - `docs/anh_ket_qua/`: đủ 11 ảnh minh chứng cá nhân của tuần 2.
 
-## Chuẩn bị giao diện tuần 3
-
-`skills/design-taste-frontend/` là bản sao skill thiết kế giao diện từ
-https://github.com/leonxlnx/taste-skill; nguồn, commit và giấy phép được ghi
-trong `skills/design-taste-frontend/UPSTREAM.md`. Bản định hướng riêng cho
-Sudoku nằm ở `design/taste-week3/BRIEF.md`. Đây là công cụ thiết kế, không phải
-dependency của chương trình terminal; giao diện web chưa được triển khai.
-
 Tài liệu soạn báo cáo và công cụ tạo DOCX/PDF được giữ ngoài kho mã/GitHub;
 chúng không phải thành phần cần thiết để chạy chương trình.
 
