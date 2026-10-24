@@ -1,4 +1,4 @@
-"""In expected, actual và PASS/FAIL của các ca độc lập tuần 2."""
+"""In expected, actual và PASS/FAIL của các ca độc lập DT041."""
 
 from __future__ import annotations
 
@@ -9,6 +9,8 @@ from src.terminal import EXAMPLES
 
 SOLUTION = ((1, 2, 3, 4), (3, 4, 1, 2), (2, 1, 4, 3), (4, 3, 2, 1))
 UNSAT = [[0, 0, 0, 4], [0, 0, 0, 0], [2, 0, 1, 0], [4, 0, 0, 0]]
+BACKTRACK = [[1, 0, 0, 4], [0, 0, 1, 0], [0, 4, 0, 0], [3, 0, 0, 0]]
+BACKTRACK_SOLUTION = ((1, 3, 2, 4), (4, 2, 1, 3), (2, 4, 3, 1), (3, 1, 4, 2))
 
 
 def with_cells(*cells: tuple[int, int, int]) -> list[list[int]]:
@@ -27,6 +29,7 @@ CASES = [
     ("PHIEU05", [[0] * 4 for _ in range(4)], "một nghiệm hợp lệ", None),
     ("TK01", [list(row) for row in SOLUTION[:-1]] + [[4, 3, 2, 0]], "đúng nghiệm phiếu", SOLUTION),
     ("TK02", UNSAT, "không có nghiệm", None),
+    ("TK03", BACKTRACK, "một nghiệm hợp lệ", BACKTRACK_SOLUTION),
     ("BIEN01", with_cells((3, 3, 1)), "một nghiệm hợp lệ", None),
     ("BIEN02", [[0, 2, 3, 4], *[list(row) for row in SOLUTION[1:]]], "đúng nghiệm phiếu", SOLUTION),
     ("BIEN03", [[0, 0, 3, 4], *[list(row) for row in SOLUTION[1:]]], "đúng nghiệm phiếu", SOLUTION),

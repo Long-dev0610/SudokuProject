@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --ground: #f9fbfc;
+  --sheet: #ffffff;
+  --ink: #131416;
+  --muted: #5d5f60;
+  --line: #e8eaec;
+  --accent: #1b6c80;
+}
+
+html, body, [data-testid="stApp"] {
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  color: var(--ink);
+}
+
+[data-testid="stApp"] :is(h1, h2, h3, h4, p, button, input, label) {
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+}
+
+[data-testid="stApp"] button {
+  color: var(--ink);
+}
+
+[data-testid="stApp"] button[kind="primary"] {
+  color: #ffffff;
+}
+
+[data-testid="stAppViewContainer"] {
+  background: var(--ground);
+}
+
+[data-testid="stHeader"] {
+  background: var(--ground);
+}
+
+.block-container {
+  max-width: 1160px;
+  padding-top: 2.25rem;
+  padding-bottom: 4rem;
+}
+
+.project-mark {
+  font-size: .83rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: .7rem;
+}
+
+.project-mark span { color: #a9b3b6; padding: 0 .38rem; }
+
+h1 {
+  font-size: 1.75rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: -.025em;
+  font-weight: 600 !important;
+  margin-bottom: .15rem !important;
+}
+
+h3 {
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -.01em;
+}
+
+.st-key-board_area {
+  max-width: 440px;
+  background: var(--sheet);
+  border: 1px solid #cbd3d6;
+  border-radius: 8px;
+  padding: 6px;
+  margin: .75rem 0 1rem;
+}
+
+.st-key-board_area [data-testid="stVerticalBlock"] {
+  gap: 0 !important;
+}
+
+.st-key-board_area [data-testid="stHorizontalBlock"] {
+  gap: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+.st-key-board_area [data-testid="stColumn"] {
+  min-width: 0 !important;
+  flex: 1 1 25% !important;
+}
+
+[class*="st-key-cell_"] { margin: 0 !important; }
+[class*="st-key-cell_"] [data-baseweb="input"] {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+[class*="st-key-cell_"] input {
+  height: 88px !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--line) !important;
+  text-align: center;
+  font: 600 1.6rem 'IBM Plex Sans', Arial, sans-serif !important;
+  color: var(--ink) !important;
+  background: var(--sheet) !important;
+  padding: 0 !important;
+}
+
+[class*="st-key-cell_"] input:focus {
+  background: #eff7f8 !important;
+  outline: 2px solid var(--accent) !important;
+  outline-offset: -2px;
+}
+
+.st-key-cell_0_1 input, .st-key-cell_1_1 input,
+.st-key-cell_2_1 input, .st-key-cell_3_1 input {
+  border-right: 3px solid #5d696d !important;
+}
+
+.st-key-cell_1_0 input, .st-key-cell_1_1 input,
+.st-key-cell_1_2 input, .st-key-cell_1_3 input {
+  border-bottom: 3px solid #5d696d !important;
+}
+
+.status {
+  border-left: 3px solid var(--line);
+  padding: .25rem 0 .25rem 1rem;
+  margin: .8rem 0 1.5rem;
+}
+
+.status span { font-weight: 600; font-size: 1.03rem; }
+.status p { margin: .3rem 0 0; color: var(--muted); }
+.status-solved, .status-valid { border-color: #1e7b4f; }
+.status-unsolved, .status-invalid { border-color: #c4242a; }
+
+.empty-state {
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 2.1rem;
+  margin-top: .8rem;
+  color: var(--muted);
+}
+
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(100%, 360px);
+  border: 2px solid #465459;
+  background: var(--sheet);
+}
+
+.solution-cell {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  font-size: 1.45rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.solution-cell.filled { color: var(--accent); background: #eff7f8; }
+.solution-cell.col-1 { border-right: 2px solid #465459; }
+.solution-cell.row-1 { border-bottom: 2px solid #465459; }
+
+.run-stats {
+  display: flex;
+  gap: 1.5rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 1rem 0;
+  margin: 1.3rem 0;
+  max-width: 440px;
+}
+
+.run-stats > div { min-width: 80px; }
+.run-stats span { display: block; font-size: .8rem; color: var(--muted); }
+.run-stats strong { display: block; font-size: 1.35rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 640px) {
+  .block-container { padding: 1.35rem 1rem 3rem; }
+  [class*="st-key-cell_"] input { height: 68px !important; font-size: 1.4rem !important; }
+  .run-stats { gap: .8rem; justify-content: space-between; }
+}

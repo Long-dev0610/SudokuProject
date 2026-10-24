@@ -6,6 +6,7 @@ import sys
 from src.terminal import EXAMPLES
 
 UNSAT = ((0, 0, 0, 4), (0, 0, 0, 0), (2, 0, 1, 0), (4, 0, 0, 0))
+BACKTRACK = ((1, 0, 0, 4), (0, 0, 1, 0), (0, 4, 0, 0), (3, 0, 0, 0))
 
 
 def all_solutions():
@@ -44,10 +45,11 @@ def main():
         "ví dụ 1": len(matching(solutions, EXAMPLES[1])),
         "ví dụ 2": len(matching(solutions, EXAMPLES[2])),
         "đề vô nghiệm TK02": len(matching(solutions, UNSAT)),
+        "đề quay lui TK03": len(matching(solutions, BACKTRACK)),
     }
     for label, count in counts.items():
         print(f"{label}: {count}")
-    if counts != {"tổng bảng hợp lệ": 288, "ví dụ 1": 1, "ví dụ 2": 1, "đề vô nghiệm TK02": 0}:
+    if counts != {"tổng bảng hợp lệ": 288, "ví dụ 1": 1, "ví dụ 2": 1, "đề vô nghiệm TK02": 0, "đề quay lui TK03": 1}:
         raise SystemExit(1)
 
 

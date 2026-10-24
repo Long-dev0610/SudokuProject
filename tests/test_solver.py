@@ -10,6 +10,8 @@ from src.terminal import EXAMPLES, main
 
 SOLUTION = ((1, 2, 3, 4), (3, 4, 1, 2), (2, 1, 4, 3), (4, 3, 2, 1))
 UNSAT = [[0, 0, 0, 4], [0, 0, 0, 0], [2, 0, 1, 0], [4, 0, 0, 0]]
+BACKTRACK = [[1, 0, 0, 4], [0, 0, 1, 0], [0, 4, 0, 0], [3, 0, 0, 0]]
+BACKTRACK_SOLUTION = ((1, 3, 2, 4), (4, 2, 1, 3), (2, 4, 3, 1), (3, 1, 4, 2))
 
 
 class SolverTests(unittest.TestCase):
@@ -52,6 +54,12 @@ class SolverTests(unittest.TestCase):
         result = solve_sudoku(UNSAT)
         self.assertIsNone(result.board)
         self.assertGreater(result.backtracks, 0)
+
+    def test_solvable_board_really_requires_backtracking(self):
+        result = solve_sudoku(BACKTRACK, record_trace=True)
+        self.assertEqual(result.board, BACKTRACK_SOLUTION)
+        self.assertEqual((result.attempts, result.placements, result.backtracks), (55, 18, 7))
+        self.assertTrue(any(event.action == "hoàn tác" for event in result.trace))
 
     def test_solver_does_not_mutate_input(self):
         board = [row.copy() for row in EXAMPLES[1]]
