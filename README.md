@@ -1,5 +1,7 @@
 # DT041 Sudoku 4×4
 
+Kho GitHub: https://github.com/Long-dev0610/SudokuProject
+
 Bài cá nhân của Lê Minh Long (N24DCDT046), Khoa Điện tử 2, ngành Kỹ thuật điện, điện tử; môn Cấu trúc dữ liệu và giải thuật INT13185, nhóm 03.
 
 ## Trạng thái tuần 1

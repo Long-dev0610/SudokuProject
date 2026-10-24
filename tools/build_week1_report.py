@@ -91,7 +91,7 @@ def main():
         205: "Bộ kiểm từ chối thiếu/thừa hàng, hàng sai số ô, giá trị không phải số nguyên 0–4, trùng số cho trước trong hàng, cột và khối 2×2. Số 0 không được tính là trùng. Đề hợp lệ nhưng vô nghiệm chỉ có thể xác định sau khi bổ sung solver.",
         208: "Tuần 1 đã cài `validate_board` và `can_place` trong `src/core/validation.py`, `read_board`/`main` trong `src/terminal.py`. Lõi sẽ dùng chung cho terminal và web. Solver `solve_sudoku` cùng hàm kiểm nghiệm cuối mới ở mức thiết kế.",
         219: "GIẢI(b): tìm ô 0 đầu theo thứ tự hàng; nếu không có, kiểm nghiệm rồi trả thành công. Với v từ 1 đến 4: nếu đặt được thì gán v, gọi GIẢI(b); nếu nhánh thành công trả thành công; nếu thất bại đặt lại 0. Thử hết thì trả thất bại. Đây là thiết kế của tuần 2, chưa phải mã đã chạy.",
-        254: "Môi trường tuần 1: Python 3, thư viện chuẩn `unittest`; chạy `python -m unittest discover -s tests -v`. Phiên bản Python cụ thể và SHA được ghi trong tệp ThongTinNop khi đóng gói. Không có kết quả solver ở tuần này.",
+        254: "Môi trường tuần 1: Python 3.12.14, thư viện chuẩn `unittest`; chạy `python -m unittest discover -s tests -v`. Bảy bài kiểm thử đạt. Commit mã đã chạy C: 98d5cb426e223063acff1662301ebd86cec83364. Không có kết quả solver ở tuần này.",
         257: "Expected của validator được suy từ quy tắc Sudoku 4×4: kiểm trực tiếp các số cho trước trong hàng, cột, khối. Hai ví dụ trên phiếu được dùng làm dữ liệu đầu vào hợp lệ, chưa dùng để khẳng định thuật toán giải đã đạt nghiệm.",
         260: "Bảng kế hoạch 16 ca ở `docs/ke_hoach_kiem_thu.md`. Tuần 1 đã chạy các nhóm kiểm cấu trúc, miền giá trị, xung đột và `can_place`. Hai ví dụ chỉ được xác nhận là đầu vào hợp lệ; kết quả giải và tổng số ca độc lập cuối kỳ sẽ được điền sau khi chạy solver.",
     }
@@ -112,6 +112,8 @@ def main():
     set_paragraph(report, 364, "Giáo trình Cấu trúc dữ liệu và Giải thuật INT1306, chương 3, mục 3.6.2–3.6.3 và Bài 3.4.")
     set_paragraph(report, 370, "Mã nguồn, lệnh chạy và hướng dẫn kiểm thử nằm trong README.md của tệp MaNguon.zip.")
     set_paragraph(report, 380, "Tuần 1: đã đối chiếu thông tin cá nhân, phiếu DT041, chạy 7 bài kiểm thử Python; các mục cuối kỳ còn lại sẽ được kiểm tra ở tuần 4.")
+    set_paragraph(report, 338, "Kho mã: https://github.com/Long-dev0610/SudokuProject. Commit mã và kiểm thử đã chạy C: 98d5cb426e223063acff1662301ebd86cec83364. Hàm chính hiện tại là `validate_board` và `can_place` trong `src/core/validation.py`; chương trình terminal ở `src/terminal.py`. Bộ giải chưa được cài trong tuần 1.")
+    set_paragraph(report, 342, "Đã clone sạch commit C từ GitHub vào thư mục mới và chạy `python -m src.terminal --example 1`, `python -m src.terminal --example 2`, `python -m unittest discover -s tests -q` bằng Python 3.12.14. Hai ví dụ được nhận là đề hợp lệ; 7/7 bài kiểm thử đạt. Đây là kiểm chứng validator và terminal tuần 1, chưa phải kiểm chứng nghiệm Sudoku. Log tóm tắt lưu tại `docs/kiem_chung_clone_tuan_1.md`.")
 
     set_row(tables[6], 1, ["Bảng b", "4 hàng × 4 ô", "Số nguyên 0–4", "Bàn phím hoặc khai báo"])
     set_row(tables[6], 2, ["Ô trống", "Một ô b[r][c]", "Giá trị 0", "Từ bảng b"])
@@ -129,6 +131,12 @@ def main():
     set_row(tables[11], 1, ["validate_board(board)", "Bảng có thể sai", "Trả bản bất biến nếu hợp lệ", "BoardError có giải thích"])
     set_row(tables[11], 2, ["can_place(board,r,c,v)", "Đề hợp lệ; r,c 0–3; v 1–4", "Boolean; bảng không đổi", "ValueError nếu tham số sai"])
     set_row(tables[11], 3, ["solve_sudoku(board)", "Đề hợp lệ", "Một nghiệm hoặc không có nghiệm", "Chưa cài trong tuần 1"])
+    set_row(tables[27], 1, ["URL repo", "https://github.com/Long-dev0610/SudokuProject"])
+    set_row(tables[27], 2, ["Full SHA chạy ảnh C", "98d5cb426e223063acff1662301ebd86cec83364"])
+    set_row(tables[27], 3, ["SHA S ghi TXT nộp rời", "Điền sau khi push bản chốt"])
+    set_row(tables[27], 4, ["Permalink hàm kiểm", "https://github.com/Long-dev0610/SudokuProject/blob/98d5cb426e223063acff1662301ebd86cec83364/src/core/validation.py"])
+    set_row(tables[27], 5, ["Mã/kiểm thử giữa C và S", "Không thay đổi lõi và test; chỉ cập nhật tài liệu nộp"])
+    set_row(tables[27], 6, ["Lệnh chạy lại", "python -m unittest discover -s tests -v"])
 
     # Các bảng kết quả chưa làm để trống theo yêu cầu nộp tiến độ của giảng viên.
     for table in tables[12:31]:
