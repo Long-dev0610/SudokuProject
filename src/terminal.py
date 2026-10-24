@@ -1,11 +1,11 @@
-"""Giao diện terminal giai đoạn tuần 1."""
+"""Giao diện terminal cho Sudoku 4×4."""
 
 from __future__ import annotations
 
 import argparse
 import sys
 
-from src.core import BoardError, can_place, validate_board
+from src.core import BoardError, can_place, solve_sudoku, validate_board
 
 EXAMPLES = {
     1: [[1, 0, 3, 4], [3, 4, 1, 2], [2, 1, 4, 3], [4, 3, 2, 0]],
@@ -17,7 +17,10 @@ def read_board() -> list[list[int]]:
     print("Nhập 4 dòng, mỗi dòng gồm 4 số 0–4 cách nhau bằng khoảng trắng:")
     rows = []
     for index in range(1, 5):
-        raw = input(f"Hàng {index}: ")
+        try:
+            raw = input(f"Hàng {index}: ")
+        except EOFError as exc:
+            raise BoardError("Chưa nhập đủ 4 hàng.") from exc
         try:
             rows.append([int(token) for token in raw.split()])
         except ValueError as exc:
@@ -38,7 +41,7 @@ def main(argv: list[str] | None = None) -> int:
     # Windows PowerShell có thể để stdout ở cp1252 dù nguồn là UTF-8.
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    parser = argparse.ArgumentParser(description="Kiểm tra đề Sudoku 4×4, giai đoạn tuần 1")
+    parser = argparse.ArgumentParser(description="Giải Sudoku 4×4 bằng quay lui")
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--example", type=int, choices=(1, 2), help="Nạp ví dụ từ phiếu")
     source.add_argument("--input", action="store_true", help="Nhập 16 số từ bàn phím")
@@ -46,6 +49,7 @@ def main(argv: list[str] | None = None) -> int:
         "--check", nargs=3, type=int, metavar=("ROW", "COL", "VALUE"),
         help="Kiểm số cần đặt; ROW và COL tính từ 1",
     )
+    parser.add_argument("--trace", action="store_true", help="In các bước đặt và hoàn tác")
     args = parser.parse_args(argv)
     try:
         raw = EXAMPLES[args.example] if args.example else read_board()
@@ -56,7 +60,16 @@ def main(argv: list[str] | None = None) -> int:
             row, col, value = args.check
             possible = can_place(board, row - 1, col - 1, value)
             print(f"Đặt {value} vào ({row}, {col}): {'HỢP LỆ' if possible else 'KHÔNG HỢP LỆ'}")
-        print("Bộ giải quay lui sẽ được bổ sung ở tuần 2.")
+        result = solve_sudoku(board, record_trace=args.trace)
+        if args.trace:
+            for step, event in enumerate(result.trace, start=1):
+                print(f"{step:02d}. {event.action} {event.value} tại ({event.row + 1}, {event.col + 1})")
+        print(f"Thống kê: {result.attempts} lần thử, {result.placements} lần đặt, {result.backtracks} lần hoàn tác.")
+        if result.board is None:
+            print("KHÔNG CÓ NGHIỆM.")
+            return 1
+        print("NGHIỆM:")
+        print(format_board(result.board))
         return 0
     except (BoardError, ValueError) as exc:
         print(f"ĐỀ KHÔNG HỢP LỆ: {exc}")
