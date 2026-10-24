@@ -20,7 +20,7 @@ Tại thư mục gốc dự án:
 python -m src.terminal --example 1
 python -m src.terminal --example 2
 python -m src.terminal --input
-python -m src.terminal --check 1 2 2
+python -m src.terminal --example 1 --check 1 2 2
 python -m unittest discover -s tests -v
 ```
 
@@ -34,10 +34,13 @@ Terminal hiện chỉ báo tính hợp lệ của đề và khả năng đặt s
 
 ## Cấu trúc
 
-- `src/core/validation.py`: kiểm tra đề và nước đặt, dùng chung cho terminal và web.
+- `src/core/validation.py`: lõi kiểm tra đề và nước đặt, dùng chung cho terminal và web khi web được triển khai.
 - `src/terminal.py`: giao diện dòng lệnh.
-- `src/web/README.md`: đặc tả giao diện web dự kiến.
 - `tests/`: kiểm thử tự động.
-- `docs/`: đặc tả, kế hoạch ca kiểm và tài liệu tuần 1.
+- `docs/logs/`: stdout của các lệnh đã chạy trên commit C.
+- `docs/anh_ket_qua/`: ảnh minh chứng cá nhân sẽ bổ sung theo tiến độ.
+
+Tài liệu soạn báo cáo và công cụ tạo DOCX/PDF được giữ ngoài kho mã/GitHub;
+chúng không phải thành phần cần thiết để chạy chương trình.
 
 Thông tin gốc: phiếu DT041 trong `91_Phieu_giao_de_tai_INT13185_N03.docx`, giáo trình INT1306 chương 3 mục 3.6.2–3.6.3 và Bài 3.4.

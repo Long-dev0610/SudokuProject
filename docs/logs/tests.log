@@ -1,0 +1,27 @@
+test_both_assigned_examples_are_valid (test_validation.ValidationTests.test_both_assigned_examples_are_valid) ... ok
+test_can_place_checks_all_rules_without_mutating (test_validation.ValidationTests.test_can_place_checks_all_rules_without_mutating) ... ok
+test_can_place_rejects_bad_arguments (test_validation.ValidationTests.test_can_place_rejects_bad_arguments) ... ok
+1 0 | 3 4
+3 4 | 1 2
+------+------
+2 1 | 4 3
+4 3 | 2 0
+ĐỀ HỢP LỆ: kích thước, miền giá trị và các số cho trước không xung đột.
+Đặt 2 vào (1, 2): HỢP LỆ
+Bộ giải quay lui sẽ được bổ sung ở tuần 2.
+test_cli_examples_run (test_validation.ValidationTests.test_cli_examples_run) ... ok
+test_invalid_cell_values_are_rejected (test_validation.ValidationTests.test_invalid_cell_values_are_rejected) ... ok
+test_row_column_and_block_conflicts_are_independent (test_validation.ValidationTests.test_row_column_and_block_conflicts_are_independent) ... ok
+test_wrong_shape_is_rejected (test_validation.ValidationTests.test_wrong_shape_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.003s
+
+OK
+0 2 | 3 4
+3 4 | 1 2
+------+------
+2 1 | 0 3
+4 3 | 2 1
+ĐỀ HỢP LỆ: kích thước, miền giá trị và các số cho trước không xung đột.
+Bộ giải quay lui sẽ được bổ sung ở tuần 2.

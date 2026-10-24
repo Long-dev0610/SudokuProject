@@ -8,6 +8,9 @@ venv/
 dist/
 build/
 *.log
+!docs/logs/*.log
 sources/
 nop_tuan_*/
 qa/
+planning/
+tools/
