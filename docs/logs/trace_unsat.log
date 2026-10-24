@@ -1,0 +1,37 @@
+Nhập 4 dòng, mỗi dòng gồm 4 số 0–4 cách nhau bằng khoảng trắng:
+Hàng 1: Hàng 2: Hàng 3: Hàng 4: 0 0 | 0 4
+0 0 | 0 0
+------+------
+2 0 | 1 0
+4 0 | 0 0
+ĐỀ HỢP LỆ: kích thước, miền giá trị và các số cho trước không xung đột.
+01. đặt 1 tại (1, 1)
+02. đặt 2 tại (1, 2)
+03. đặt 3 tại (1, 3)
+04. đặt 3 tại (2, 1)
+05. đặt 4 tại (2, 2)
+06. đặt 2 tại (2, 3)
+07. đặt 1 tại (2, 4)
+08. đặt 3 tại (3, 2)
+09. hoàn tác 3 tại (3, 2)
+10. hoàn tác 1 tại (2, 4)
+11. hoàn tác 2 tại (2, 3)
+12. hoàn tác 4 tại (2, 2)
+13. hoàn tác 3 tại (2, 1)
+14. hoàn tác 3 tại (1, 3)
+15. hoàn tác 2 tại (1, 2)
+16. đặt 3 tại (1, 2)
+17. đặt 2 tại (1, 3)
+18. hoàn tác 2 tại (1, 3)
+19. hoàn tác 3 tại (1, 2)
+20. hoàn tác 1 tại (1, 1)
+21. đặt 3 tại (1, 1)
+22. đặt 1 tại (1, 2)
+23. đặt 2 tại (1, 3)
+24. hoàn tác 2 tại (1, 3)
+25. hoàn tác 1 tại (1, 2)
+26. đặt 2 tại (1, 2)
+27. hoàn tác 2 tại (1, 2)
+28. hoàn tác 3 tại (1, 1)
+Thống kê: 60 lần thử, 14 lần đặt, 14 lần hoàn tác.
+KHÔNG CÓ NGHIỆM.

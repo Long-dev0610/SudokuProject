@@ -1,3 +1,18 @@
+test_duplicate_given_in_row_is_invalid (test_solver.SolverTests.test_duplicate_given_in_row_is_invalid) ... ok
+test_empty_board_has_a_valid_solution (test_solver.SolverTests.test_empty_board_has_a_valid_solution) ... ok
+test_example_1_matches_assignment (test_solver.SolverTests.test_example_1_matches_assignment) ... ok
+test_example_2_matches_assignment (test_solver.SolverTests.test_example_2_matches_assignment) ... ok
+test_full_valid_board_returns_unchanged (test_solver.SolverTests.test_full_valid_board_returns_unchanged) ... ok
+test_single_missing_cell_is_filled (test_solver.SolverTests.test_single_missing_cell_is_filled) ... ok
+test_solution_checker_rejects_changed_given (test_solver.SolverTests.test_solution_checker_rejects_changed_given) ... ok
+test_solution_checker_rejects_unfilled_board (test_solver.SolverTests.test_solution_checker_rejects_unfilled_board) ... ok
+test_solver_does_not_mutate_input (test_solver.SolverTests.test_solver_does_not_mutate_input) ... ok
+test_terminal_example_prints_solution (test_solver.SolverTests.test_terminal_example_prints_solution) ... ok
+test_terminal_input_rejects_conflicting_givens (test_solver.SolverTests.test_terminal_input_rejects_conflicting_givens) ... ok
+test_terminal_input_reports_no_solution (test_solver.SolverTests.test_terminal_input_reports_no_solution) ... ok
+test_trace_records_placements_and_undo (test_solver.SolverTests.test_trace_records_placements_and_undo) ... ok
+test_valid_but_unsolvable_board_returns_none (test_solver.SolverTests.test_valid_but_unsolvable_board_returns_none) ... ok
+test_value_five_is_invalid (test_solver.SolverTests.test_value_five_is_invalid) ... ok
 test_both_assigned_examples_are_valid (test_validation.ValidationTests.test_both_assigned_examples_are_valid) ... ok
 test_can_place_checks_all_rules_without_mutating (test_validation.ValidationTests.test_can_place_checks_all_rules_without_mutating) ... ok
 test_can_place_rejects_bad_arguments (test_validation.ValidationTests.test_can_place_rejects_bad_arguments) ... ok
@@ -8,14 +23,20 @@ test_can_place_rejects_bad_arguments (test_validation.ValidationTests.test_can_p
 4 3 | 2 0
 ĐỀ HỢP LỆ: kích thước, miền giá trị và các số cho trước không xung đột.
 Đặt 2 vào (1, 2): HỢP LỆ
-Bộ giải quay lui sẽ được bổ sung ở tuần 2.
+Thống kê: 3 lần thử, 2 lần đặt, 0 lần hoàn tác.
+NGHIỆM:
+1 2 | 3 4
+3 4 | 1 2
+------+------
+2 1 | 4 3
+4 3 | 2 1
 test_cli_examples_run (test_validation.ValidationTests.test_cli_examples_run) ... ok
 test_invalid_cell_values_are_rejected (test_validation.ValidationTests.test_invalid_cell_values_are_rejected) ... ok
 test_row_column_and_block_conflicts_are_independent (test_validation.ValidationTests.test_row_column_and_block_conflicts_are_independent) ... ok
 test_wrong_shape_is_rejected (test_validation.ValidationTests.test_wrong_shape_is_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 7 tests in 0.003s
+Ran 22 tests in 0.012s
 
 OK
 0 2 | 3 4
@@ -24,4 +45,10 @@ OK
 2 1 | 0 3
 4 3 | 2 1
 ĐỀ HỢP LỆ: kích thước, miền giá trị và các số cho trước không xung đột.
-Bộ giải quay lui sẽ được bổ sung ở tuần 2.
+Thống kê: 5 lần thử, 2 lần đặt, 0 lần hoàn tác.
+NGHIỆM:
+1 2 | 3 4
+3 4 | 1 2
+------+------
+2 1 | 4 3
+4 3 | 2 1
