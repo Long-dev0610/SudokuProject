@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import sys
+
 from src.core import BoardError, is_complete_solution, solve_sudoku
 from src.terminal import EXAMPLES
 
@@ -36,6 +38,8 @@ CASES = [
 
 
 def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     passed = 0
     for code, board, expected, exact in CASES:
         try:

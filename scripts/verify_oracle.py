@@ -1,6 +1,7 @@
 """Oracle độc lập: liệt kê mọi bảng Sudoku 4×4 đầy hợp lệ bằng hoán vị."""
 
 from itertools import permutations
+import sys
 
 from src.terminal import EXAMPLES
 
@@ -35,6 +36,8 @@ def matching(solutions, given):
 
 
 def main():
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     solutions = list(all_solutions())
     counts = {
         "tổng bảng hợp lệ": len(solutions),
