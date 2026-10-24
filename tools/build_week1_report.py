@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from pathlib import Path
+import subprocess
 
 from docx import Document
 
@@ -44,6 +45,13 @@ def insert_original_assignment(report, source):
 
 def main():
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        final_sha = subprocess.check_output(
+            ["git", "-c", f"safe.directory={ROOT.as_posix()}", "rev-parse", "HEAD"],
+            cwd=ROOT, text=True, stderr=subprocess.DEVNULL,
+        ).strip()
+    except (OSError, subprocess.CalledProcessError):
+        final_sha = "Chưa có; xem tệp ThongTinNop.txt"
     report = Document(TEMPLATE)
     source = Document(ASSIGNMENTS)
     tables = list(report.tables)
@@ -133,7 +141,7 @@ def main():
     set_row(tables[11], 3, ["solve_sudoku(board)", "Đề hợp lệ", "Một nghiệm hoặc không có nghiệm", "Chưa cài trong tuần 1"])
     set_row(tables[27], 1, ["URL repo", "https://github.com/Long-dev0610/SudokuProject"])
     set_row(tables[27], 2, ["Full SHA chạy ảnh C", "98d5cb426e223063acff1662301ebd86cec83364"])
-    set_row(tables[27], 3, ["SHA S ghi TXT nộp rời", "Điền sau khi push bản chốt"])
+    set_row(tables[27], 3, ["SHA S ghi TXT nộp rời", final_sha])
     set_row(tables[27], 4, ["Permalink hàm kiểm", "https://github.com/Long-dev0610/SudokuProject/blob/98d5cb426e223063acff1662301ebd86cec83364/src/core/validation.py"])
     set_row(tables[27], 5, ["Mã/kiểm thử giữa C và S", "Không thay đổi lõi và test; chỉ cập nhật tài liệu nộp"])
     set_row(tables[27], 6, ["Lệnh chạy lại", "python -m unittest discover -s tests -v"])
