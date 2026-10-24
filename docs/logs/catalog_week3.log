@@ -1,0 +1,33 @@
+VD01: input=[[1, 0, 3, 4], [3, 4, 1, 2], [2, 1, 4, 3], [4, 3, 2, 0]]
+  expected=đúng nghiệm phiếu; actual=một nghiệm hợp lệ; đúng bảng kỳ vọng=True; PASS
+VD02: input=[[0, 2, 3, 4], [3, 4, 1, 2], [2, 1, 0, 3], [4, 3, 2, 1]]
+  expected=đúng nghiệm phiếu; actual=một nghiệm hợp lệ; đúng bảng kỳ vọng=True; PASS
+PHIEU01: input=((1, 2, 3, 4), (3, 4, 1, 2), (2, 1, 4, 3), (4, 3, 2, 1))
+  expected=giữ nguyên bảng đầy; actual=một nghiệm hợp lệ; đúng bảng kỳ vọng=True; PASS
+PHIEU03: input=[[1, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  expected=đề không hợp lệ; actual=đề không hợp lệ; PASS
+PHIEU04: input=[[5, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  expected=đề không hợp lệ; actual=đề không hợp lệ; PASS
+PHIEU05: input=[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  expected=một nghiệm hợp lệ; actual=một nghiệm hợp lệ; PASS
+TK01: input=[[1, 2, 3, 4], [3, 4, 1, 2], [2, 1, 4, 3], [4, 3, 2, 0]]
+  expected=đúng nghiệm phiếu; actual=một nghiệm hợp lệ; đúng bảng kỳ vọng=True; PASS
+TK02: input=[[0, 0, 0, 4], [0, 0, 0, 0], [2, 0, 1, 0], [4, 0, 0, 0]]
+  expected=không có nghiệm; actual=không có nghiệm; PASS
+TK03: input=[[1, 0, 0, 4], [0, 0, 1, 0], [0, 4, 0, 0], [3, 0, 0, 0]]
+  expected=một nghiệm hợp lệ; actual=một nghiệm hợp lệ; PASS
+BIEN01: input=[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 1]]
+  expected=một nghiệm hợp lệ; actual=một nghiệm hợp lệ; PASS
+BIEN02: input=[[0, 2, 3, 4], [3, 4, 1, 2], [2, 1, 4, 3], [4, 3, 2, 1]]
+  expected=đúng nghiệm phiếu; actual=một nghiệm hợp lệ; đúng bảng kỳ vọng=True; PASS
+BIEN03: input=[[0, 0, 3, 4], [3, 4, 1, 2], [2, 1, 4, 3], [4, 3, 2, 1]]
+  expected=đúng nghiệm phiếu; actual=một nghiệm hợp lệ; đúng bảng kỳ vọng=True; PASS
+LOI01: input=[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  expected=đề không hợp lệ; actual=đề không hợp lệ; PASS
+LOI02: input=[[1, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0]]
+  expected=đề không hợp lệ; actual=đề không hợp lệ; PASS
+LOI03: input=[[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  expected=đề không hợp lệ; actual=đề không hợp lệ; PASS
+LOI04: input=[[-1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+  expected=đề không hợp lệ; actual=đề không hợp lệ; PASS
+TỔNG KẾT: 16/16 ca độc lập đạt
