@@ -57,17 +57,14 @@ def main():
     frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="normal")
     doc.addPageTemplates(PageTemplate(id="page", frames=[frame], onPage=footer))
     story = []
-    cover_title_count = 0
     for child in source.element.body.iterchildren():
         if child.tag == qn("w:p"):
             item = WordParagraph(child, source._body)
             txt = item.text.strip()
             if not txt:
                 continue
-            if txt == "BỘ KHOA HỌC VÀ CÔNG NGHỆ":
-                cover_title_count += 1
-                if cover_title_count == 2:
-                    story.append(PageBreak())
+            if txt == "PHIẾU GIAO ĐỀ TÀI":
+                story.append(PageBreak())
             style_name = item.style.name.lower()
             if "heading 1" in style_name or txt.startswith("CHƯƠNG "):
                 style = h1

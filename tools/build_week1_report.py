@@ -43,6 +43,22 @@ def insert_original_assignment(report, source):
         anchor.addprevious(deepcopy(child))
 
 
+def remove_duplicate_cover(report):
+    """Mẫu có bìa ngoài và bìa trong gần trùng nhau; giữ bìa trong đầy đủ hơn."""
+    cover_titles = [
+        paragraph._element for paragraph in report.paragraphs
+        if paragraph.text.strip() == "BỘ KHOA HỌC VÀ CÔNG NGHỆ"
+    ]
+    if len(cover_titles) != 2:
+        raise RuntimeError("Không xác định được đúng hai bìa trong mẫu")
+    second_cover = cover_titles[1]
+    body = report.element.body
+    for child in list(body.iterchildren()):
+        if child is second_cover:
+            break
+        body.remove(child)
+
+
 def main():
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     try:
@@ -155,6 +171,7 @@ def main():
 
     # Chèn phiếu sau các sửa theo vị trí của mẫu để chỉ số đoạn không bị dịch.
     insert_original_assignment(report, source)
+    remove_duplicate_cover(report)
     report.core_properties.title = "Báo cáo tiến độ tuần 1 DT041 Sudoku 4×4"
     report.core_properties.author = "Lê Minh Long"
     report.save(OUTPUT)
