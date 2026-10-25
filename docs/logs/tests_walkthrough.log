@@ -1,0 +1,35 @@
+Commit mã/test C4: dc12836123d24377f97b1e272ea705f3d003597a
+Lệnh: python -m unittest discover -s tests -q
+Mã thoát: 0
+
+1 0 | 3 4
+3 4 | 1 2
+------+------
+2 1 | 4 3
+4 3 | 2 0
+ĐỀ HỢP LỆ: kích thước, miền giá trị và các số cho trước không xung đột.
+Đặt 2 vào (1, 2): HỢP LỆ
+Thống kê: 3 lần thử, 2 lần đặt, 0 lần hoàn tác.
+NGHIỆM:
+1 2 | 3 4
+3 4 | 1 2
+------+------
+2 1 | 4 3
+4 3 | 2 1
+0 2 | 3 4
+3 4 | 1 2
+------+------
+2 1 | 0 3
+4 3 | 2 1
+ĐỀ HỢP LỆ: kích thước, miền giá trị và các số cho trước không xung đột.
+Thống kê: 5 lần thử, 2 lần đặt, 0 lần hoàn tác.
+NGHIỆM:
+1 2 | 3 4
+3 4 | 1 2
+------+------
+2 1 | 4 3
+4 3 | 2 1
+----------------------------------------------------------------------
+Ran 33 tests in 0.025s
+
+OK

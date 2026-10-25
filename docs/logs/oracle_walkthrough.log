@@ -1,0 +1,9 @@
+Commit mã/test C4: dc12836123d24377f97b1e272ea705f3d003597a
+Lệnh: python -m scripts.verify_oracle
+Mã thoát: 0
+
+tổng bảng hợp lệ: 288
+ví dụ 1: 1
+ví dụ 2: 1
+đề vô nghiệm TK02: 0
+đề quay lui TK03: 1
