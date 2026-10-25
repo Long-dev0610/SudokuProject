@@ -20,3 +20,9 @@ triển khai mã C4. C01 cho thấy ca TK03 ở bước 0/98 và bảng ban đ�
 thấy bước 2/98: thử số 1 tại ô (1,2) bị loại vì trùng hàng và khối 2×2;
 bảng chưa thay đổi, số lần thử tăng từ 0 lên 1. Hai ảnh này là minh chứng
 web bổ sung; phần báo cáo thuật toán chính vẫn dùng kết quả terminal.
+
+D01.png và D02.png do sinh viên chụp tại URL Streamlit công khai sau khi
+triển khai mã C5. D01 là đề ngẫu nhiên với 11 ô trống; D02 là cùng đề sau
+khi chạy tự động rồi tạm dừng ở bước 5/105. Tổng 105 bước, 59 lần thử,
+19 lần đặt và 8 lần hoàn tác thuộc đề ngẫu nhiên cụ thể trong hai ảnh;
+không thay số liệu 98 bước của ca TK03.
