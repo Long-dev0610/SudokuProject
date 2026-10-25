@@ -33,6 +33,8 @@ Terminal in bảng nhập, thống kê số ứng viên đã thử, số lần �
 
 ## Chạy web
 
+Bản triển khai công khai: https://sudokuproject-7scj2bkvtelczn5mytkgt9.streamlit.app/
+
 Tại thư mục gốc dự án:
 
 ```powershell
@@ -40,7 +42,7 @@ python -m pip install -r requirements.txt
 python -m streamlit run streamlit_app.py
 ```
 
-Mở địa chỉ localhost do Streamlit in ra. Bản web và terminal chỉ khác giao diện; cả hai gọi `src/core/validation.py` và `src/core/solver.py`. Khi triển khai trên Streamlit Community Cloud, chọn repo này, nhánh `main`, tệp khởi chạy `streamlit_app.py`, và Python 3.11 trở lên. URL triển khai sẽ bổ sung sau khi tạo ứng dụng trên tài khoản của sinh viên.
+Mở địa chỉ localhost do Streamlit in ra. Bản web và terminal chỉ khác giao diện; cả hai gọi `src/core/validation.py` và `src/core/solver.py`. Bản công khai chạy từ nhánh `main`, tệp khởi chạy `streamlit_app.py` trên Streamlit Community Cloud. Ảnh B03 ghi nhận ví dụ 1 đã giải thành công trên URL công khai.
 
 Ca TK03 kiểm nhánh quay lui có nghiệm (nhập bằng `--input` hoặc trên web):
 
