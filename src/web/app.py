@@ -51,10 +51,16 @@ def board_markup(outcome: WebOutcome) -> str:
 
 
 def render_result(outcome: WebOutcome | None) -> None:
-    st.markdown("### Kết quả")
+    st.markdown(
+        '<div class="section-head"><span class="section-index">02</span>'
+        '<div><h2>Kết quả</h2><p>Nghiệm và vết chạy của bộ giải quay lui.</p></div></div>',
+        unsafe_allow_html=True,
+    )
     if outcome is None:
         st.markdown(
-            '<div class="empty-state">Nhập đề hoặc nạp ví dụ, rồi chọn <strong>Giải bảng</strong>.</div>',
+            '<div class="empty-state"><span class="empty-kicker">Sẵn sàng</span>'
+            '<strong>Kết quả sẽ xuất hiện tại đây</strong>'
+            '<p>Nhập đề hoặc nạp ví dụ, sau đó chọn Giải bảng.</p></div>',
             unsafe_allow_html=True,
         )
         return
@@ -109,45 +115,54 @@ def main() -> None:
     if cell_key(0, 0) not in st.session_state:
         load_board(EXAMPLES[1])
 
-    st.markdown('<div class="project-mark">DT041 <span>·</span> Sudoku 4×4</div>', unsafe_allow_html=True)
+    st.markdown('<div class="project-mark"><span class="project-symbol">4×4</span><span>DT041 / SUDOKU</span></div>', unsafe_allow_html=True)
     st.title("Giải Sudoku 4×4")
-    st.write("Nhập số 1–4, để trống ô chưa biết. Bộ giải thử từng số và quay lui khi cần.")
+    st.markdown('<p class="intro">Điền số 1–4 vào bảng; để trống ô chưa biết. Chọn đề mẫu để thử nhanh.</p>', unsafe_allow_html=True)
 
-    tools = st.columns([1, 1, 1, 3], gap="small", vertical_alignment="bottom")
-    with tools[0]:
-        st.button("Ví dụ 1", on_click=load_board, args=(EXAMPLES[1],), width="stretch")
-    with tools[1]:
-        st.button("Ví dụ 2", on_click=load_board, args=(EXAMPLES[2],), width="stretch")
-    with tools[2]:
-        st.button("Xóa bảng", on_click=load_board, args=(EMPTY,), width="stretch")
+    with st.container(key="workbench"):
+        left, right = st.columns([1, 1], gap="large")
+        with left:
+            st.markdown(
+                '<div class="section-head"><span class="section-index">01</span>'
+                '<div><h2>Bảng đề</h2><p>Mỗi khối viền đậm gồm 2×2 ô.</p></div></div>',
+                unsafe_allow_html=True,
+            )
+            with st.container(key="example_tools"):
+                tools = st.columns(3, gap="small")
+                with tools[0]:
+                    st.button("Ví dụ 1", on_click=load_board, args=(EXAMPLES[1],), width="stretch")
+                with tools[1]:
+                    st.button("Ví dụ 2", on_click=load_board, args=(EXAMPLES[2],), width="stretch")
+                with tools[2]:
+                    st.button("Xóa bảng", on_click=load_board, args=(EMPTY,), width="stretch")
 
-    left, right = st.columns([1, 1.1], gap="large")
-    with left:
-        st.markdown("### Bảng đề")
-        st.caption("Bốn hàng, bốn cột; mỗi khối đậm gồm 2×2 ô.")
-        with st.container(key="board_area"):
-            for row in range(4):
-                columns = st.columns(4, gap=None, wrap=False)
-                for col, column in enumerate(columns):
-                    with column:
-                        st.text_input(
-                            f"Hàng {row + 1}, cột {col + 1}",
-                            key=cell_key(row, col),
-                            max_chars=1,
-                            label_visibility="collapsed",
-                            on_change=clear_outcome,
-                        )
-        actions = st.columns([1, 1.4], gap="small")
-        with actions[0]:
-            if st.button("Kiểm tra đề", width="stretch"):
-                st.session_state["outcome"] = evaluate(current_rows(), solve=False)
-        with actions[1]:
-            if st.button("Giải bảng", type="primary", width="stretch"):
-                st.session_state["outcome"] = evaluate(current_rows(), solve=True)
-        st.caption("Bảng nghiệm, thống kê và vết chạy đều lấy từ cùng bộ giải Python của bản terminal.")
+            with st.container(key="board_area"):
+                for row in range(4):
+                    columns = st.columns(4, gap=None, wrap=False)
+                    for col, column in enumerate(columns):
+                        with column:
+                            st.text_input(
+                                f"Hàng {row + 1}, cột {col + 1}",
+                                key=cell_key(row, col),
+                                max_chars=1,
+                                label_visibility="collapsed",
+                                on_change=clear_outcome,
+                            )
+            with st.container(key="action_tools"):
+                actions = st.columns([1, 1.4], gap="small")
+                with actions[0]:
+                    if st.button("Kiểm tra đề", width="stretch"):
+                        st.session_state["outcome"] = evaluate(current_rows(), solve=False)
+                with actions[1]:
+                    if st.button("Giải bảng", type="primary", width="stretch"):
+                        st.session_state["outcome"] = evaluate(current_rows(), solve=True)
+            st.markdown('<p class="board-note">Số đã cho được giữ nguyên khi giải.</p>', unsafe_allow_html=True)
 
-    with right:
-        render_result(st.session_state["outcome"])
+        with right:
+            with st.container(key="result_panel"):
+                render_result(st.session_state["outcome"])
+
+    st.markdown('<p class="page-foot">Bản web dùng cùng thuật toán Python với chương trình terminal.</p>', unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
