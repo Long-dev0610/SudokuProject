@@ -15,7 +15,7 @@
 html, body, [data-testid="stApp"] { font-family: 'IBM Plex Sans', Arial, sans-serif; color: var(--ink); }
 [data-testid="stApp"] :is(h1, h2, h3, h4, p, button, input, label) { font-family: 'IBM Plex Sans', Arial, sans-serif; }
 [data-testid="stAppViewContainer"], [data-testid="stHeader"] { background: var(--ground); }
-.block-container { max-width: 1120px; padding-top: 2rem; padding-bottom: 2.5rem; }
+.block-container { max-width: 1120px; padding-top: 4rem; padding-bottom: 2.5rem; }
 
 .project-mark { display: flex; align-items: center; gap: .75rem; width: fit-content; color: var(--accent); font-size: .83rem; font-weight: 600; margin-bottom: .45rem; }
 .project-symbol { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--accent); border-radius: 5px; color: var(--accent); font-size: .75rem; letter-spacing: 0; }
@@ -114,7 +114,7 @@ h4 { font-size: .9rem !important; font-weight: 600 !important; margin: 0 0 .1rem
 .final-state strong { color: var(--accent); }
 
 @media (max-width: 780px) {
-  .block-container { padding: 1.3rem 1rem 2rem; }
+  .block-container { padding: 4rem 1rem 2rem; }
   .st-key-workbench { padding: 1.25rem; }
   .st-key-workbench > [data-testid="stLayoutWrapper"] > [data-testid="stHorizontalBlock"] { gap: 1.5rem; }
   .st-key-result_panel { padding-left: 1.5rem; }
@@ -123,7 +123,7 @@ h4 { font-size: .9rem !important; font-weight: 600 !important; margin: 0 0 .1rem
 }
 
 @media (max-width: 640px) {
-  .block-container { padding-top: 3.7rem; }
+  .block-container { padding-top: 4rem; }
   .st-key-workbench { padding: 1rem; }
   .st-key-result_panel { border-left: 0; border-top: 1px solid var(--line); padding: 1.2rem 0 0; }
   .section-head { min-height: 56px; }
