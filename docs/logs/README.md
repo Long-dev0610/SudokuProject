@@ -15,3 +15,5 @@ tự chạy và chụp trên máy của mình.
 
 Các log `*_week3.log` được tạo từ mã/test/input ở commit C3 `d5f5437af46be6daab2960b009b64bb9beaeeb35` ngày 24/10/2026. Chúng ghi kết quả 29 unittest, 16 ca độc lập, oracle và TK03 có 7 lần hoàn tác. Các log không có hậu tố là bằng chứng tuần 2 tại C2 và được giữ để đối chiếu với ảnh A01–A11.
 
+Các log `*_walkthrough.log` thuộc commit C4 `dc12836123d24377f97b1e272ea705f3d003597a`: 33 unittest, 16 ca độc lập, oracle và vết TK03 98 sự kiện. `tests_random_autoplay.log` thuộc commit C5 `3f9403746245bf49cbcdc75cec31d8f7c9a4b64f`: 34 unittest, trong đó có kiểm tra 32 đề ngẫu nhiên đều hợp lệ và có đúng một nghiệm. Mã terminal/lõi giải không đổi giữa C4 và C5.
+
