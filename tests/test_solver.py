@@ -5,7 +5,7 @@ import unittest
 from contextlib import redirect_stdout
 from unittest.mock import patch
 
-from src.core import BoardError, is_complete_solution, solve_sudoku, validate_board
+from src.core import BoardError, is_complete_solution, placement_conflicts, solve_sudoku, validate_board
 from src.terminal import EXAMPLES, main
 
 SOLUTION = ((1, 2, 3, 4), (3, 4, 1, 2), (2, 1, 4, 3), (4, 3, 2, 1))
@@ -71,6 +71,14 @@ class SolverTests(unittest.TestCase):
         result = solve_sudoku(UNSAT, record_trace=True)
         self.assertEqual(sum(e.action == "đặt" for e in result.trace), result.placements)
         self.assertEqual(sum(e.action == "hoàn tác" for e in result.trace), result.backtracks)
+
+    def test_trace_explains_each_attempt_using_real_constraints(self):
+        result = solve_sudoku(BACKTRACK, record_trace=True)
+        attempts = [event for event in result.trace if event.action == "thử"]
+        self.assertEqual(len(attempts), result.attempts)
+        self.assertTrue(any(event.conflicts for event in attempts))
+        self.assertTrue(any(event.action == "chọn" for event in result.trace))
+        self.assertEqual(placement_conflicts(EXAMPLES[1], 0, 1, 1), ("row", "column", "block"))
 
     def test_solution_checker_rejects_unfilled_board(self):
         self.assertFalse(is_complete_solution(EXAMPLES[1], EXAMPLES[1]))

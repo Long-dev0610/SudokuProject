@@ -56,23 +56,31 @@ def validate_board(board: object) -> tuple[tuple[int, ...], ...]:
     return b
 
 
-def can_place(board: object, row: int, col: int, value: int) -> bool:
-    """Kiểm một nước đặt; chỉ số row/col từ 0 đến 3, không sửa bảng."""
+def placement_conflicts(board: object, row: int, col: int, value: int) -> tuple[str, ...]:
+    """Nêu các ràng buộc bị vi phạm mà không sửa bảng."""
     b = validate_board(board)
     if type(row) is not int or type(col) is not int or not (0 <= row < SIZE and 0 <= col < SIZE):
         raise ValueError("Chỉ số hàng và cột phải từ 0 đến 3.")
     if type(value) is not int or not 1 <= value <= SIZE:
         raise ValueError("Giá trị cần đặt phải là số nguyên từ 1 đến 4.")
     if b[row][col] != 0:
-        return False
+        return ("occupied",)
+    conflicts = []
     if value in b[row]:
-        return False
+        conflicts.append("row")
     if any(b[r][col] == value for r in range(SIZE)):
-        return False
+        conflicts.append("column")
     row0 = (row // BLOCK) * BLOCK
     col0 = (col // BLOCK) * BLOCK
-    return not any(
+    if any(
         b[r][c] == value
         for r in range(row0, row0 + BLOCK)
         for c in range(col0, col0 + BLOCK)
-    )
+    ):
+        conflicts.append("block")
+    return tuple(conflicts)
+
+
+def can_place(board: object, row: int, col: int, value: int) -> bool:
+    """Kiểm một nước đặt; chỉ số row/col từ 0 đến 3, không sửa bảng."""
+    return not placement_conflicts(board, row, col, value)

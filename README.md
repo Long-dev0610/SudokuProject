@@ -4,9 +4,9 @@ Kho GitHub: https://github.com/Long-dev0610/SudokuProject
 
 Bài cá nhân của Lê Minh Long (N24DCDT046), Khoa Điện tử 2, ngành Kỹ thuật điện, điện tử; môn Cấu trúc dữ liệu và giải thuật INT13185, nhóm 03.
 
-## Trạng thái tuần 3
+## Chức năng hiện tại
 
-Chương trình kiểm tra đề và giải Sudoku 4×4 bằng quay lui theo thứ tự hàng/cột. Hai ví dụ và năm ca bắt buộc trong phiếu DT041 đã đạt. Bản web Python dùng cùng `src/core/` với terminal; có nhập 16 ô, ví dụ, kiểm đề, giải, thống kê và vết chạy. Ca TK03 có nghiệm và thực sự đi qua 7 lần hoàn tác.
+Chương trình kiểm tra đề và giải Sudoku 4×4 bằng quay lui theo thứ tự hàng/cột. Hai ví dụ và năm ca bắt buộc trong phiếu DT041 đã đạt. Bản web Python dùng cùng `src/core/` với terminal; có nhập 16 ô, kiểm đề và xem từng lần chọn ô, thử số, đặt số, hoàn tác. Ca TK03 có nghiệm và thực sự đi qua 7 lần hoàn tác.
 
 ## Yêu cầu
 
@@ -29,7 +29,7 @@ python -m scripts.verify_oracle
 
 Với `--input`, nhập bốn dòng, mỗi dòng gồm bốn số 0–4 cách nhau bằng khoảng trắng. `--check ROW COL VALUE` dùng chỉ số hàng/cột từ 1 đến 4 và kiểm số có thể đặt vào ô trống hay không.
 
-Terminal in bảng nhập, thống kê số ứng viên đã thử, số lần đặt và số lần hoàn tác, sau đó in nghiệm. `--trace` in từng lần đặt/hoàn tác với tọa độ 1–4. Chương trình trả mã 0 khi có nghiệm, 1 khi đề hợp lệ nhưng vô nghiệm, 2 khi đề sai hoặc tham số không hợp lệ.
+Terminal in bảng nhập, thống kê số ứng viên đã thử, số lần đặt và số lần hoàn tác, sau đó in nghiệm. `--trace` in ô được chọn, từng số đã thử, ràng buộc khiến số bị loại, lần đặt và lần hoàn tác với tọa độ 1–4. Chương trình trả mã 0 khi có nghiệm, 1 khi đề hợp lệ nhưng vô nghiệm, 2 khi đề sai hoặc tham số không hợp lệ.
 
 ## Chạy web
 
@@ -42,7 +42,7 @@ python -m pip install -r requirements.txt
 python -m streamlit run streamlit_app.py
 ```
 
-Mở địa chỉ localhost do Streamlit in ra. Bản web và terminal chỉ khác giao diện; cả hai gọi `src/core/validation.py` và `src/core/solver.py`. Bản công khai chạy từ nhánh `main`, tệp khởi chạy `streamlit_app.py` trên Streamlit Community Cloud. Ảnh B03 ghi nhận ví dụ 1 đã giải thành công trên URL công khai.
+Mở địa chỉ localhost do Streamlit in ra. Web dùng để **theo dõi thuật toán quay lui**: chọn một trong hai ví dụ của phiếu, ca cần hoàn tác hoặc nhập bảng mới; bấm **Xem thuật toán giải**, rồi dùng Bước trước/Bước tiếp, thanh chọn bước và Xem kết quả. Mỗi bước cho biết số được thử, hàng/cột/khối có xung đột hay không, trạng thái bảng và số lần thử/đặt/hoàn tác tích lũy. Bản web và terminal cùng gọi `src/core/validation.py` và `src/core/solver.py`; web không có thuật toán giải riêng. Bản công khai chạy từ nhánh `main`, tệp khởi chạy `streamlit_app.py` trên Streamlit Community Cloud.
 
 Ca TK03 kiểm nhánh quay lui có nghiệm (nhập bằng `--input` hoặc trên web):
 

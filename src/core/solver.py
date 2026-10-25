@@ -4,17 +4,18 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .validation import SIZE, can_place, validate_board
+from .validation import SIZE, placement_conflicts, validate_board
 
 Board = tuple[tuple[int, ...], ...]
 
 
 @dataclass(frozen=True)
 class TraceEvent:
-    action: str  # "đặt" hoặc "hoàn tác"
+    action: str  # "chọn", "thử", "đặt" hoặc "hoàn tác"
     row: int  # 0-based
     col: int  # 0-based
     value: int
+    conflicts: tuple[str, ...] = ()  # ràng buộc của lần thử bị vi phạm
 
 
 @dataclass(frozen=True)
@@ -58,9 +59,14 @@ def solve_sudoku(board: object, *, record_trace: bool = False) -> SolveResult:
             return is_complete_solution(original, working)
 
         row, col = empty
+        if record_trace:
+            events.append(TraceEvent("chọn", row, col, 0))
         for value in range(1, SIZE + 1):
             attempts += 1
-            if not can_place(working, row, col, value):
+            conflicts = placement_conflicts(working, row, col, value)
+            if record_trace:
+                events.append(TraceEvent("thử", row, col, value, conflicts))
+            if conflicts:
                 continue
             working[row][col] = value
             placements += 1

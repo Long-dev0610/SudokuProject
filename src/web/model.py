@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
 
-from src.core import BoardError, SolveResult, solve_sudoku, validate_board
+from src.core import BoardError, SolveResult, TraceEvent, solve_sudoku, validate_board
 
 Board = tuple[tuple[int, ...], ...]
 Status = Literal["invalid", "valid", "unsolved", "solved"]
@@ -18,6 +18,36 @@ class WebOutcome:
     message: str
     original: Board | None = None
     result: SolveResult | None = None
+
+
+@dataclass(frozen=True)
+class TraceFrame:
+    board: Board
+    event: TraceEvent | None
+    attempts: int
+    placements: int
+    backtracks: int
+
+
+def frame_at(outcome: WebOutcome, step: int) -> TraceFrame:
+    """Dựng đúng trạng thái sau `step` sự kiện, từ đề và vết của bộ giải."""
+    if outcome.original is None or outcome.result is None:
+        raise ValueError("Chưa có lần giải để xem vết chạy.")
+    if not 0 <= step <= len(outcome.result.trace):
+        raise ValueError("Bước nằm ngoài vết chạy.")
+    board = [list(row) for row in outcome.original]
+    attempts = placements = backtracks = 0
+    for event in outcome.result.trace[:step]:
+        if event.action == "thử":
+            attempts += 1
+        elif event.action == "đặt":
+            board[event.row][event.col] = event.value
+            placements += 1
+        elif event.action == "hoàn tác":
+            board[event.row][event.col] = 0
+            backtracks += 1
+    event = outcome.result.trace[step - 1] if step else None
+    return TraceFrame(tuple(tuple(row) for row in board), event, attempts, placements, backtracks)
 
 
 def parse_cells(rows: Sequence[Sequence[str]]) -> Board:

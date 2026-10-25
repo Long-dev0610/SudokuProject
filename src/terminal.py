@@ -49,7 +49,7 @@ def main(argv: list[str] | None = None) -> int:
         "--check", nargs=3, type=int, metavar=("ROW", "COL", "VALUE"),
         help="Kiểm số cần đặt; ROW và COL tính từ 1",
     )
-    parser.add_argument("--trace", action="store_true", help="In các bước đặt và hoàn tác")
+    parser.add_argument("--trace", action="store_true", help="In ô được chọn, số thử, ràng buộc, đặt và hoàn tác")
     args = parser.parse_args(argv)
     try:
         raw = EXAMPLES[args.example] if args.example else read_board()
@@ -62,8 +62,20 @@ def main(argv: list[str] | None = None) -> int:
             print(f"Đặt {value} vào ({row}, {col}): {'HỢP LỆ' if possible else 'KHÔNG HỢP LỆ'}")
         result = solve_sudoku(board, record_trace=args.trace)
         if args.trace:
+            reason_names = {"row": "hàng", "column": "cột", "block": "khối 2×2", "occupied": "ô đã có số"}
             for step, event in enumerate(result.trace, start=1):
-                print(f"{step:02d}. {event.action} {event.value} tại ({event.row + 1}, {event.col + 1})")
+                position = f"({event.row + 1}, {event.col + 1})"
+                if event.action == "chọn":
+                    detail = f"chọn ô trống đầu tiên {position}"
+                elif event.action == "thử":
+                    verdict = (
+                        "loại vì trùng " + ", ".join(reason_names[reason] for reason in event.conflicts)
+                        if event.conflicts else "hợp lệ"
+                    )
+                    detail = f"thử {event.value} tại {position}: {verdict}"
+                else:
+                    detail = f"{event.action} {event.value} tại {position}"
+                print(f"{step:02d}. {detail}")
         print(f"Thống kê: {result.attempts} lần thử, {result.placements} lần đặt, {result.backtracks} lần hoàn tác.")
         if result.board is None:
             print("KHÔNG CÓ NGHIỆM.")
