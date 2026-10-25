@@ -4,11 +4,12 @@ from __future__ import annotations
 
 from html import escape
 from pathlib import Path
+from time import monotonic
 
 import streamlit as st
 
-from src.terminal import EXAMPLES
 from src.web.model import TraceFrame, WebOutcome, evaluate, frame_at
+from src.web.puzzles import random_puzzle
 
 STYLE = Path(__file__).with_name("style.css")
 EMPTY = [[0] * 4 for _ in range(4)]
@@ -26,11 +27,22 @@ def load_board(board: list[list[int]]) -> None:
             st.session_state[cell_key(row, col)] = "" if value == 0 else str(value)
     st.session_state["outcome"] = None
     st.session_state["trace_step"] = 0
+    st.session_state["autoplay"] = False
+
+
+def load_random_board() -> None:
+    previous = current_rows()
+    for _ in range(10):
+        board = random_puzzle()
+        if [["" if value == 0 else str(value) for value in row] for row in board] != previous:
+            break
+    load_board(board)
 
 
 def clear_outcome() -> None:
     st.session_state["outcome"] = None
     st.session_state["trace_step"] = 0
+    st.session_state["autoplay"] = False
 
 
 def current_rows() -> list[list[str]]:
@@ -120,11 +132,35 @@ def describe_step(frame: TraceFrame, total: int, step: int, solved: bool) -> tup
 
 
 def change_step(delta: int, total: int) -> None:
+    st.session_state["autoplay"] = False
     st.session_state["trace_step"] = max(0, min(total, st.session_state.get("trace_step", 0) + delta))
 
 
 def jump_step(step: int) -> None:
+    st.session_state["autoplay"] = False
     st.session_state["trace_step"] = step
+
+
+def toggle_autoplay(total: int) -> None:
+    if st.session_state.get("autoplay"):
+        st.session_state["autoplay"] = False
+    elif total:
+        if st.session_state.get("trace_step", 0) >= total:
+            st.session_state["trace_step"] = 0
+        st.session_state["autoplay"] = True
+        st.session_state["auto_tick"] = monotonic()
+
+
+def advance_autoplay(total: int) -> None:
+    if not st.session_state.get("autoplay"):
+        return
+    now = monotonic()
+    if now - st.session_state.get("auto_tick", now) < 0.55:
+        return
+    st.session_state["trace_step"] = min(total, st.session_state.get("trace_step", 0) + 1)
+    st.session_state["auto_tick"] = now
+    if st.session_state["trace_step"] >= total:
+        st.session_state["autoplay"] = False
 
 
 def pseudocode_for(action: str | None, *, finished: bool, solved: bool) -> str:
@@ -139,10 +175,12 @@ def pseudocode_for(action: str | None, *, finished: bool, solved: bool) -> str:
     }[action]
 
 
+@st.fragment(run_every="0.6s")
 def render_walkthrough(outcome: WebOutcome) -> None:
     assert outcome.original is not None and outcome.result is not None
     result = outcome.result
     total = len(result.trace)
+    advance_autoplay(total)
     step = min(st.session_state.get("trace_step", 0), total)
     st.session_state["trace_step"] = step
 
@@ -164,6 +202,15 @@ def render_walkthrough(outcome: WebOutcome) -> None:
                 st.button("Xem kết quả", on_click=jump_step, args=(total,), disabled=step == total, width="stretch")
         if total:
             st.slider("Chọn bước để xem", min_value=0, max_value=total, key="trace_step")
+            with st.container(key="playback_controls"):
+                play_col, note_col = st.columns([1, 2], gap="small")
+                with play_col:
+                    st.button(
+                        "Tạm dừng" if st.session_state.get("autoplay") else "Chạy tự động",
+                        on_click=toggle_autoplay, args=(total,), width="stretch",
+                    )
+                with note_col:
+                    st.caption("Tự chuyển từng bước; có thể tạm dừng hoặc tua thủ công.")
         else:
             st.caption("Bảng đã đầy; không có bước thử để tua.")
 
@@ -232,13 +279,12 @@ def render_input_controls() -> None:
         unsafe_allow_html=True,
     )
     with st.container(key="example_tools"):
-        tools = st.columns(3, gap="small")
+        tools = st.columns(2, gap="small")
         with tools[0]:
-            st.button("Ví dụ 1", on_click=load_board, args=(EXAMPLES[1],), width="stretch")
+            st.button("Đề ngẫu nhiên", on_click=load_random_board, width="stretch")
         with tools[1]:
-            st.button("Ví dụ 2", on_click=load_board, args=(EXAMPLES[2],), width="stretch")
-        with tools[2]:
             st.button("Ca quay lui", on_click=load_board, args=(BACKTRACK_DEMO,), width="stretch")
+    st.markdown('<p class="board-note">Tự tạo đề: điền số 1–4 vào ô cho trước; để trống ô chưa biết. Đề ngẫu nhiên có 11 ô trống và một nghiệm.</p>', unsafe_allow_html=True)
     with st.container(key="board_area"):
         for row in range(4):
             columns = st.columns(4, gap=None, wrap=False)
@@ -268,7 +314,7 @@ def main() -> None:
     st.set_page_config(page_title="Sudoku 4×4 · DT041", layout="wide", initial_sidebar_state="collapsed")
     st.markdown(f"<style>{STYLE.read_text(encoding='utf-8')}</style>", unsafe_allow_html=True)
     if cell_key(0, 0) not in st.session_state:
-        load_board(EXAMPLES[1])
+        load_board(EMPTY)
 
     st.markdown('<div class="project-mark"><span class="project-symbol">4×4</span><span>DT041 · Sudoku 4×4</span></div>', unsafe_allow_html=True)
     outcome = st.session_state["outcome"]
@@ -278,7 +324,7 @@ def main() -> None:
             render_input_controls()
     else:
         st.title("Giải Sudoku 4×4")
-        st.markdown('<p class="intro">Điền số 1–4 vào bảng; để trống ô chưa biết. Chọn đề mẫu để thử nhanh.</p>', unsafe_allow_html=True)
+        st.markdown('<p class="intro">Tạo một đề ngẫu nhiên hoặc tự nhập các số cho trước để theo dõi cách thuật toán giải.</p>', unsafe_allow_html=True)
         with st.container(key="workbench"):
             left, right = st.columns([1, 1], gap="large")
             with left:

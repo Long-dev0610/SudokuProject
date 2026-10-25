@@ -6,7 +6,7 @@ Bài cá nhân của Lê Minh Long (N24DCDT046), Khoa Điện tử 2, ngành K�
 
 ## Chức năng hiện tại
 
-Chương trình kiểm tra đề và giải Sudoku 4×4 bằng quay lui theo thứ tự hàng/cột. Hai ví dụ và năm ca bắt buộc trong phiếu DT041 đã đạt. Bản web Python dùng cùng `src/core/` với terminal; có nhập 16 ô, kiểm đề và xem từng lần chọn ô, thử số, đặt số, hoàn tác. Ca TK03 có nghiệm và thực sự đi qua 7 lần hoàn tác.
+Chương trình kiểm tra đề và giải Sudoku 4×4 bằng quay lui theo thứ tự hàng/cột. Hai ví dụ và năm ca bắt buộc trong phiếu DT041 đã đạt. Bản web Python dùng cùng `src/core/` với terminal; có nhập 16 ô, tạo đề ngẫu nhiên có một nghiệm, kiểm đề và xem từng lần chọn ô, thử số, đặt số, hoàn tác bằng nút bước hoặc chạy tự động. Ca TK03 có nghiệm và thực sự đi qua 7 lần hoàn tác.
 
 ## Yêu cầu
 
@@ -42,7 +42,7 @@ python -m pip install -r requirements.txt
 python -m streamlit run streamlit_app.py
 ```
 
-Mở địa chỉ localhost do Streamlit in ra. Web dùng để **theo dõi thuật toán quay lui**: chọn một trong hai ví dụ của phiếu, ca cần hoàn tác hoặc nhập bảng mới; bấm **Xem thuật toán giải**, rồi dùng Bước trước/Bước tiếp, thanh chọn bước và Xem kết quả. Mỗi bước cho biết số được thử, hàng/cột/khối có xung đột hay không, trạng thái bảng và số lần thử/đặt/hoàn tác tích lũy. Bản web và terminal cùng gọi `src/core/validation.py` và `src/core/solver.py`; web không có thuật toán giải riêng. Bản công khai chạy từ nhánh `main`, tệp khởi chạy `streamlit_app.py` trên Streamlit Community Cloud.
+Mở địa chỉ localhost do Streamlit in ra. Web dùng để **theo dõi thuật toán quay lui**: bấm **Đề ngẫu nhiên** để lấy đề 11 ô trống có một nghiệm, chọn **Ca quay lui**, hoặc tự nhập số 1–4 vào các ô cho trước và để trống ô chưa biết. Bấm **Kiểm tra đề** để báo số sai/trùng; bấm **Xem thuật toán giải**, rồi dùng Bước trước/Bước tiếp, thanh chọn bước, **Chạy tự động/Tạm dừng** hoặc Xem kết quả. Chạy tự động chuyển từng sự kiện khoảng 0,6 giây một bước và dừng ở cuối. Mỗi bước cho biết số được thử, hàng/cột/khối có xung đột hay không, trạng thái bảng và số lần thử/đặt/hoàn tác tích lũy. Hai ví dụ của phiếu vẫn có ở terminal. Bản web và terminal cùng gọi `src/core/validation.py` và `src/core/solver.py`; web không có thuật toán giải riêng. Bản công khai chạy từ nhánh `main`, tệp khởi chạy `streamlit_app.py` trên Streamlit Community Cloud.
 
 Ca TK03 kiểm nhánh quay lui có nghiệm (nhập bằng `--input` hoặc trên web):
 
@@ -65,11 +65,11 @@ Nghiệm đúng là `1 3 2 4 / 4 2 1 3 / 2 4 3 1 / 3 1 4 2`; bộ giải ghi 55 
 - `src/core/solver.py`: quay lui, kiểm nghiệm cuối, thống kê và vết đặt/hoàn tác.
 - `src/terminal.py`: giao diện dòng lệnh.
 - `tests/`: kiểm thử tự động.
-- `src/web/`: lớp chuyển dữ liệu và giao diện Streamlit; `streamlit_app.py` là điểm chạy.
+- `src/web/`: lớp chuyển dữ liệu, tạo đề ngẫu nhiên bằng biến đổi Sudoku và giao diện Streamlit; `streamlit_app.py` là điểm chạy.
 - `scripts/test_catalog.py`: expected/actual/PASS của 16 ca độc lập.
 - `scripts/verify_oracle.py`: liệt kê nghiệm 4×4 độc lập để kiểm tra hai ví dụ và ca vô nghiệm.
 - `docs/logs/`: stdout của các lệnh đã chạy trên commit C.
-- `docs/anh_ket_qua/`: 11 ảnh minh chứng cá nhân từ tuần 2. Ảnh bổ sung tuần 3 được ghi rõ phiên bản khi có.
+- `docs/anh_ket_qua/`: ảnh minh chứng cá nhân A01–A11, B01–B03 và C01–C02, ghi rõ phiên bản trong README của thư mục.
 
 Tài liệu soạn báo cáo và công cụ tạo DOCX/PDF được giữ ngoài kho mã/GitHub;
 chúng không phải thành phần cần thiết để chạy chương trình.
